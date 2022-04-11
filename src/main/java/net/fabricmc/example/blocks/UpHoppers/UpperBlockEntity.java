@@ -41,8 +41,12 @@ public class UpperBlockEntity extends LootableContainerBlockEntity implements Ho
     private long lastTickTime;
     private int itemTransferCooldown;
 
-    public UpperBlockEntity(BlockPos pos, BlockState state,int transferSpeed) {
-        super(HipHoppersBlocks.UPPER_BLOCK_ENTITY, pos, state);
+    public UpperBlockEntity(BlockPos pos, BlockState state) {
+        this(pos,state, 8);
+    }
+
+    public UpperBlockEntity(BlockPos pos, BlockState state, int transferSpeed) {
+        super(HipHoppersBlocks.UPPER_BLOCK_ENTITY,pos, state);
         this.inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
         this.transferCooldown = -1;
         this.itemTransferCooldown = transferSpeed;
@@ -54,7 +58,7 @@ public class UpperBlockEntity extends LootableContainerBlockEntity implements Ho
         if (!this.deserializeLootTable(nbt)) {
             Inventories.readNbt(nbt, this.inventory);
         }
-
+        this.itemTransferCooldown = nbt.getInt("ItemTransferCooldown");
         this.transferCooldown = nbt.getInt("TransferCooldown");
     }
 
@@ -63,7 +67,7 @@ public class UpperBlockEntity extends LootableContainerBlockEntity implements Ho
         if (!this.serializeLootTable(nbt)) {
             Inventories.writeNbt(nbt, this.inventory);
         }
-
+        nbt.putInt("ItemTransferCooldown", this.itemTransferCooldown);
         nbt.putInt("TransferCooldown", this.transferCooldown);
     }
 
@@ -320,7 +324,7 @@ public class UpperBlockEntity extends LootableContainerBlockEntity implements Ho
 
     public static List<ItemEntity> getInputItemEntities(World world, Hopper hopper) {
         return (List)hopper.getInputAreaShape().getBoundingBoxes().stream().flatMap((box) -> {
-            return world.getEntitiesByClass(ItemEntity.class, box.offset(hopper.getHopperX() - 0.5D, hopper.getHopperY() - 0.5D, hopper.getHopperZ() - 0.5D), EntityPredicates.VALID_ENTITY).stream();
+            return world.getEntitiesByClass(ItemEntity.class, box.offset(hopper.getHopperX() - 0.5D, (hopper.getHopperY() - 0.5D)-2, hopper.getHopperZ() - 0.5D), EntityPredicates.VALID_ENTITY).stream();
         }).collect(Collectors.toList());
     }
 

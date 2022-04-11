@@ -30,7 +30,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class JumperBlock extends BlockWithEntity{
+public class GrabberBlock extends BlockWithEntity{
     public static final DirectionProperty FACING;
     public static final BooleanProperty ENABLED;
     private static final VoxelShape TOP_SHAPE;
@@ -47,11 +47,19 @@ public class JumperBlock extends BlockWithEntity{
     private static final VoxelShape NORTH_RAYCAST_SHAPE;
     private static final VoxelShape SOUTH_RAYCAST_SHAPE;
     private static final VoxelShape WEST_RAYCAST_SHAPE;
+    private final int transferSpeed;
 
-    public JumperBlock(Settings settings) {
+    public GrabberBlock(Settings settings,int itemMoveSpeed) {
         super(settings);
+        this.transferSpeed = itemMoveSpeed;
         this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(FACING, Direction.DOWN)).with(ENABLED, true));
     }
+
+    @Override
+    public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
+        return true;
+    }
+
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         switch((Direction)state.get(FACING)) {
@@ -93,19 +101,19 @@ public class JumperBlock extends BlockWithEntity{
     }
 
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new JumperBlockEntity(pos, state,8);
+        return new GrabberBlockEntity(pos, state,this.transferSpeed);
     }
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, HipHoppersBlocks.JUMPER_BLOCK_ENTITY, JumperBlockEntity::serverTick);
+        return world.isClient ? null : checkType(type, HipHoppersBlocks.GRABBER_BLOCK_ENTITY, GrabberBlockEntity::serverTick);
     }
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         if (itemStack.hasCustomName()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof JumperBlockEntity) {
-                ((JumperBlockEntity)blockEntity).setCustomName(itemStack.getName());
+            if (blockEntity instanceof GrabberBlockEntity) {
+                ((GrabberBlockEntity)blockEntity).setCustomName(itemStack.getName());
             }
         }
 
@@ -122,8 +130,8 @@ public class JumperBlock extends BlockWithEntity{
             return ActionResult.SUCCESS;
         } else {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof JumperBlockEntity) {
-                player.openHandledScreen((JumperBlockEntity)blockEntity);
+            if (blockEntity instanceof GrabberBlockEntity) {
+                player.openHandledScreen((GrabberBlockEntity)blockEntity);
                 player.incrementStat(Stats.INSPECT_HOPPER);
             }
 
@@ -146,8 +154,8 @@ public class JumperBlock extends BlockWithEntity{
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.isOf(newState.getBlock())) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof JumperBlockEntity) {
-                ItemScatterer.spawn(world, pos, (JumperBlockEntity)blockEntity);
+            if (blockEntity instanceof GrabberBlockEntity) {
+                ItemScatterer.spawn(world, pos, (GrabberBlockEntity)blockEntity);
                 world.updateComparators(pos, this);
             }
 
@@ -181,8 +189,8 @@ public class JumperBlock extends BlockWithEntity{
 
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof JumperBlockEntity) {
-            JumperBlockEntity.onEntityCollided(world, pos, state, entity, (JumperBlockEntity)blockEntity);
+        if (blockEntity instanceof GrabberBlockEntity) {
+            GrabberBlockEntity.onEntityCollided(world, pos, state, entity, (GrabberBlockEntity)blockEntity);
         }
 
     }

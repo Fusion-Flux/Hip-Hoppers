@@ -44,9 +44,11 @@ public class SkipperBlock extends BlockWithEntity{
     private static final VoxelShape NORTH_RAYCAST_SHAPE;
     private static final VoxelShape SOUTH_RAYCAST_SHAPE;
     private static final VoxelShape WEST_RAYCAST_SHAPE;
+    private final int transferSpeed;
 
-    public SkipperBlock(AbstractBlock.Settings settings) {
+    public SkipperBlock(AbstractBlock.Settings settings,int itemMoveSpeed) {
         super(settings);
+        this.transferSpeed = itemMoveSpeed;
         this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(FACING, Direction.DOWN)).with(ENABLED, true));
     }
 
@@ -66,6 +68,12 @@ public class SkipperBlock extends BlockWithEntity{
                 return DEFAULT_SHAPE;
         }
     }
+
+    @Override
+    public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
+        return true;
+    }
+
 
     public VoxelShape getRaycastShape(BlockState state, BlockView world, BlockPos pos) {
         switch((Direction)state.get(FACING)) {
@@ -90,7 +98,7 @@ public class SkipperBlock extends BlockWithEntity{
     }
 
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new SkipperBlockEntity(pos, state,8);
+        return new SkipperBlockEntity(pos, state,this.transferSpeed);
     }
 
     @Nullable

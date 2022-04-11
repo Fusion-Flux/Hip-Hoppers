@@ -46,9 +46,11 @@ public class UpperBlock extends BlockWithEntity {
     private static final VoxelShape NORTH_RAYCAST_SHAPE;
     private static final VoxelShape SOUTH_RAYCAST_SHAPE;
     private static final VoxelShape WEST_RAYCAST_SHAPE;
+    private final int transferSpeed;
 
-    public UpperBlock(Settings settings) {
+    public UpperBlock(Settings settings,int itemMoveSpeed) {
         super(settings);
+        this.transferSpeed=itemMoveSpeed;
         this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(FACING, Direction.UP)).with(ENABLED, true));
     }
 
@@ -80,7 +82,7 @@ public class UpperBlock extends BlockWithEntity {
     }
 
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new UpperBlockEntity(pos, state,8);
+        return new UpperBlockEntity(pos, state,this.transferSpeed);
     }
 
     @Nullable

@@ -38,15 +38,17 @@ import java.util.stream.IntStream;
 
 public class SkipperBlockEntity extends LootableContainerBlockEntity implements Hopper {
 
-    public static final int field_31341 = 8;
-    public static final int field_31342 = 5;
     private DefaultedList<ItemStack> inventory;
     private int transferCooldown;
     private long lastTickTime;
     private int itemTransferCooldown;
 
+    public SkipperBlockEntity(BlockPos pos, BlockState state) {
+        this(pos,state, 8);
+    }
+
     public SkipperBlockEntity(BlockPos pos, BlockState state, int transferSpeed) {
-        super(HipHoppersBlocks.SKIPPER_BLOCK_ENTITY, pos, state);
+        super(HipHoppersBlocks.SKIPPER_BLOCK_ENTITY,pos, state);
         this.inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
         this.transferCooldown = -1;
         this.itemTransferCooldown = transferSpeed;
@@ -58,7 +60,7 @@ public class SkipperBlockEntity extends LootableContainerBlockEntity implements 
         if (!this.deserializeLootTable(nbt)) {
             Inventories.readNbt(nbt, this.inventory);
         }
-
+        this.itemTransferCooldown = nbt.getInt("ItemTransferCooldown");
         this.transferCooldown = nbt.getInt("TransferCooldown");
     }
 
@@ -67,7 +69,7 @@ public class SkipperBlockEntity extends LootableContainerBlockEntity implements 
         if (!this.serializeLootTable(nbt)) {
             Inventories.writeNbt(nbt, this.inventory);
         }
-
+        nbt.putInt("ItemTransferCooldown", this.itemTransferCooldown);
         nbt.putInt("TransferCooldown", this.transferCooldown);
     }
 

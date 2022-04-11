@@ -35,7 +35,7 @@ import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class JumperBlockEntity extends LootableContainerBlockEntity implements Hopper {
+public class GrabberBlockEntity extends LootableContainerBlockEntity implements Hopper {
 
     public static final int field_31341 = 8;
     public static final int field_31342 = 5;
@@ -44,8 +44,12 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
     private long lastTickTime;
     private int itemTransferCooldown;
 
-    public JumperBlockEntity(BlockPos pos, BlockState state,int transferSpeed) {
-        super(HipHoppersBlocks.JUMPER_BLOCK_ENTITY, pos, state);
+    public GrabberBlockEntity(BlockPos pos, BlockState state) {
+        this(pos,state, 8);
+    }
+
+    public GrabberBlockEntity(BlockPos pos, BlockState state, int transferSpeed) {
+        super(HipHoppersBlocks.GRABBER_BLOCK_ENTITY,pos, state);
         this.inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
         this.transferCooldown = -1;
         this.itemTransferCooldown = transferSpeed;
@@ -57,7 +61,7 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
         if (!this.deserializeLootTable(nbt)) {
             Inventories.readNbt(nbt, this.inventory);
         }
-
+        this.itemTransferCooldown = nbt.getInt("ItemTransferCooldown");
         this.transferCooldown = nbt.getInt("TransferCooldown");
     }
 
@@ -66,7 +70,7 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
         if (!this.serializeLootTable(nbt)) {
             Inventories.writeNbt(nbt, this.inventory);
         }
-
+        nbt.putInt("ItemTransferCooldown", this.itemTransferCooldown);
         nbt.putInt("TransferCooldown", this.transferCooldown);
     }
 
@@ -92,7 +96,7 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
         return new TranslatableText("container.jumper");
     }
 
-    public static void serverTick(World world, BlockPos pos, BlockState state, JumperBlockEntity blockEntity) {
+    public static void serverTick(World world, BlockPos pos, BlockState state, GrabberBlockEntity blockEntity) {
         --blockEntity.transferCooldown;
         blockEntity.lastTickTime = world.getTime();
         if (!blockEntity.needsCooldown()) {
@@ -104,11 +108,11 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
 
     }
 
-    private static boolean insertAndExtract(World world, BlockPos pos, BlockState state, JumperBlockEntity blockEntity, BooleanSupplier booleanSupplier) {
+    private static boolean insertAndExtract(World world, BlockPos pos, BlockState state, GrabberBlockEntity blockEntity, BooleanSupplier booleanSupplier) {
         if (world.isClient) {
             return false;
         } else {
-            if (!blockEntity.needsCooldown() && (Boolean)state.get(JumperBlock.ENABLED)) {
+            if (!blockEntity.needsCooldown() && (Boolean)state.get(GrabberBlock.ENABLED)) {
                 boolean bl = false;
                 if (!blockEntity.isEmpty()) {
                     bl = insert(world, pos, state, blockEntity);
@@ -149,7 +153,7 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
         if (inventory2 == null) {
             return false;
         } else {
-            Direction direction = ((Direction)state.get(JumperBlock.FACING)).getOpposite();
+            Direction direction = ((Direction)state.get(GrabberBlock.FACING)).getOpposite();
             if (isInventoryFull(inventory2, direction)) {
                 return false;
             } else {
@@ -288,12 +292,12 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
             }
 
             if (bl) {
-                if (bl2 && to instanceof JumperBlockEntity) {
-                    JumperBlockEntity hopperBlockEntity = (JumperBlockEntity)to;
+                if (bl2 && to instanceof GrabberBlockEntity) {
+                    GrabberBlockEntity hopperBlockEntity = (GrabberBlockEntity)to;
                     if (!hopperBlockEntity.isDisabled()) {
                         int j = 0;
                         if (from instanceof HopperBlockEntity) {
-                            JumperBlockEntity hopperBlockEntity2 = (JumperBlockEntity)from;
+                            GrabberBlockEntity hopperBlockEntity2 = (GrabberBlockEntity)from;
                             if (hopperBlockEntity.lastTickTime >= hopperBlockEntity2.lastTickTime) {
                                 j = 1;
                             }
@@ -312,7 +316,7 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
 
     @Nullable
     private static Inventory getOutputInventory(World world, BlockPos pos, BlockState state) {
-        Direction direction = (Direction)state.get(JumperBlock.FACING);
+        Direction direction = (Direction)state.get(GrabberBlock.FACING);
         return getInventoryAt(world, pos.offset(direction));
     }
 
@@ -323,7 +327,7 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
 
     public static List<ItemEntity> getInputItemEntities(World world, Hopper hopper) {
         return (List)hopper.getInputAreaShape().getBoundingBoxes().stream().flatMap((box) -> {
-            return world.getEntitiesByClass(ItemEntity.class, box.offset(hopper.getHopperX() - 0.5D, hopper.getHopperY() - 0.5D, hopper.getHopperZ() - 0.5D), EntityPredicates.VALID_ENTITY).stream();
+            return world.getEntitiesByClass(ItemEntity.class, box.offset(hopper.getHopperX() - 0.5D,( hopper.getHopperY() - 0.5D)+1, hopper.getHopperZ() - 0.5D), EntityPredicates.VALID_ENTITY).stream();
         }).collect(Collectors.toList());
     }
 
@@ -404,7 +408,7 @@ public class JumperBlockEntity extends LootableContainerBlockEntity implements H
         this.inventory = list;
     }
 
-    public static void onEntityCollided(World world, BlockPos pos, BlockState state, Entity entity, JumperBlockEntity blockEntity) {
+    public static void onEntityCollided(World world, BlockPos pos, BlockState state, Entity entity, GrabberBlockEntity blockEntity) {
         if (entity instanceof ItemEntity && VoxelShapes.matchesAnywhere(VoxelShapes.cuboid(entity.getBoundingBox().offset((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()))), blockEntity.getInputAreaShape(), BooleanBiFunction.AND)) {
             insertAndExtract(world, pos, state, blockEntity, () -> {
                 return extract((Inventory)blockEntity, (ItemEntity)((ItemEntity)entity));
