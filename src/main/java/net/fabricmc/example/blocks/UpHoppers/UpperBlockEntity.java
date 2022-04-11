@@ -39,11 +39,13 @@ public class UpperBlockEntity extends LootableContainerBlockEntity implements Ho
     private DefaultedList<ItemStack> inventory;
     private int transferCooldown;
     private long lastTickTime;
+    private int itemTransferCooldown;
 
-    public UpperBlockEntity(BlockPos pos, BlockState state) {
+    public UpperBlockEntity(BlockPos pos, BlockState state,int transferSpeed) {
         super(HipHoppersBlocks.UPPER_BLOCK_ENTITY, pos, state);
         this.inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
         this.transferCooldown = -1;
+        this.itemTransferCooldown = transferSpeed;
     }
 
     public void readNbt(NbtCompound nbt) {
@@ -114,7 +116,7 @@ public class UpperBlockEntity extends LootableContainerBlockEntity implements Ho
                 }
 
                 if (bl) {
-                    blockEntity.setTransferCooldown(8);
+                    blockEntity.setTransferCooldown(blockEntity.itemTransferCooldown);
                     markDirty(world, pos, state);
                     return true;
                 }
@@ -294,7 +296,7 @@ public class UpperBlockEntity extends LootableContainerBlockEntity implements Ho
                             }
                         }
 
-                        hopperBlockEntity.setTransferCooldown(8 - j);
+                        hopperBlockEntity.setTransferCooldown(hopperBlockEntity.itemTransferCooldown - j);
                     }
                 }
 
@@ -388,7 +390,7 @@ public class UpperBlockEntity extends LootableContainerBlockEntity implements Ho
     }
 
     private boolean isDisabled() {
-        return this.transferCooldown > 8;
+        return this.transferCooldown > this.itemTransferCooldown;
     }
 
     protected DefaultedList<ItemStack> getInvStackList() {

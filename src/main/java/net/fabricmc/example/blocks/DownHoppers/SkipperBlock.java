@@ -90,7 +90,7 @@ public class SkipperBlock extends BlockWithEntity{
     }
 
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new SkipperBlockEntity(pos, state);
+        return new SkipperBlockEntity(pos, state,8);
     }
 
     @Nullable

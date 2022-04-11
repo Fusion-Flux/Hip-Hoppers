@@ -80,7 +80,7 @@ public class UpperBlock extends BlockWithEntity {
     }
 
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new UpperBlockEntity(pos, state);
+        return new UpperBlockEntity(pos, state,8);
     }
 
     @Nullable

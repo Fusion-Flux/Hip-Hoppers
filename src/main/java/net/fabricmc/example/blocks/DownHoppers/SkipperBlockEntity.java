@@ -43,11 +43,13 @@ public class SkipperBlockEntity extends LootableContainerBlockEntity implements 
     private DefaultedList<ItemStack> inventory;
     private int transferCooldown;
     private long lastTickTime;
+    private int itemTransferCooldown;
 
-    public SkipperBlockEntity(BlockPos pos, BlockState state) {
+    public SkipperBlockEntity(BlockPos pos, BlockState state, int transferSpeed) {
         super(HipHoppersBlocks.SKIPPER_BLOCK_ENTITY, pos, state);
         this.inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
         this.transferCooldown = -1;
+        this.itemTransferCooldown = transferSpeed;
     }
 
     public void readNbt(NbtCompound nbt) {
@@ -118,7 +120,7 @@ public class SkipperBlockEntity extends LootableContainerBlockEntity implements 
                 }
 
                 if (bl) {
-                    blockEntity.setTransferCooldown(8);
+                    blockEntity.setTransferCooldown(blockEntity.itemTransferCooldown);
                     markDirty(world, pos, state);
                     return true;
                 }
@@ -298,7 +300,7 @@ public class SkipperBlockEntity extends LootableContainerBlockEntity implements 
                             }
                         }
 
-                        hopperBlockEntity.setTransferCooldown(8 - j);
+                        hopperBlockEntity.setTransferCooldown(hopperBlockEntity.itemTransferCooldown - j);
                     }
                 }
 
@@ -392,7 +394,7 @@ public class SkipperBlockEntity extends LootableContainerBlockEntity implements 
     }
 
     private boolean isDisabled() {
-        return this.transferCooldown > 8;
+        return this.transferCooldown > this.itemTransferCooldown;
     }
 
     protected DefaultedList<ItemStack> getInvStackList() {

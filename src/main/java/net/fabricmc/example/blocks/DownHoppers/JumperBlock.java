@@ -93,7 +93,7 @@ public class JumperBlock extends BlockWithEntity{
     }
 
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new JumperBlockEntity(pos, state);
+        return new JumperBlockEntity(pos, state,8);
     }
 
     @Nullable
