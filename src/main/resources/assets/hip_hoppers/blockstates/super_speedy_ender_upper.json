@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "hip_hoppers:block/hopper/super_speedy_ender_hopper",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "hip_hoppers:block/hopper/super_speedy_ender_hopper_side",
+      "y": 270,
+      "x": 180
+    },
+    "facing=north": {
+      "model": "hip_hoppers:block/hopper/super_speedy_ender_hopper_side",
+      "y": 180,
+      "x": 180
+    },
+    "facing=south": {
+      "model": "hip_hoppers:block/hopper/super_speedy_ender_hopper_side",
+      "x": 180
+    },
+    "facing=west": {
+      "model": "hip_hoppers:block/hopper/super_speedy_ender_hopper_side",
+      "y": 90,
+      "x": 180
+    }
+  }
+}

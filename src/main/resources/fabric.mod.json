@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "hip_hoppers",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Hip Hoppers",
+  "description": "This mod adds various new hoppers to the game!",
   "authors": [
-    "Me!"
+    "Fusion Flux"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -14,20 +14,18 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/hip_hoppers/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "com.fusionflux.hip_hoppers.HipHoppersMod"
     ],
     "client": [
-      "net.fabricmc.example.client.HipHoppersClient"
+      "com.fusionflux.hip_hoppers.client.HipHoppersClient"
     ]
   },
-  "mixins": [
-    "modid.mixins.json"
-  ],
+
 
   "depends": {
     "fabricloader": ">=0.13.3",

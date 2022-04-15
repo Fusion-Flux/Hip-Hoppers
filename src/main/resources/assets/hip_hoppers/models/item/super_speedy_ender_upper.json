@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "hip_hoppers:item/super_speedy_ender_upper"
+  }
+}
