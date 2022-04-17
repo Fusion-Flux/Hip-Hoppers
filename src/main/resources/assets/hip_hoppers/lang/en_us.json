@@ -1,13 +1,14 @@
 {
   "block.hip_hoppers.upper": "Upper",
-  "block.hip_hoppers.speedy_upper": "Speedy Upper",
-  "block.hip_hoppers.super_speedy_upper": "Super Speedy Upper",
+  "block.hip_hoppers.copper_upper": "Copper Upper",
+  "block.hip_hoppers.gold_plated_copper_upper": "Gold Plated Copper Upper",
   "block.hip_hoppers.ender_upper": "Ender Upper",
-  "block.hip_hoppers.speedy_ender_upper": "Speedy Ender Upper",
-  "block.hip_hoppers.super_speedy_ender_upper": "Super Speedy Ender Upper",
-  "block.hip_hoppers.speedy_hopper": "Speedy Hopper",
-  "block.hip_hoppers.super_speedy_hopper": "Super Speedy Hopper",
+  "block.hip_hoppers.copper_ender_upper": "Copper Ender Upper",
+  "block.hip_hoppers.gold_plated_copper_ender_upper": "Gold Plated Copper Ender Upper",
+  "block.hip_hoppers.copper_hopper": "Copper Hopper",
+  "block.hip_hoppers.gold_plated_copper_hopper": "Gold Plated Copper Hopper",
   "block.hip_hoppers.ender_hopper": "Ender Hopper",
-  "block.hip_hoppers.speedy_ender_hopper": "Speedy Ender Hopper",
-  "block.hip_hoppers.super_speedy_ender_hopper": "Super Speedy Ender Hopper"
+  "block.hip_hoppers.copper_ender_hopper": "Copper Ender Hopper",
+  "block.hip_hoppers.gold_plated_copper_ender_hopper": "Gold Plated Copper Ender Hopper",
+  "itemGroup.hip_hoppers.other": "Hip Hoppers"
 }
