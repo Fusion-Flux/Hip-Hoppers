@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "H"
+  ],
+  "key": {
+    "H": {
+      "item": "hip_hoppers:copper_upper"
+    }
+  },
+  "result": {
+    "item": "hip_hoppers:copper_hopper",
+    "count": 1
+  }
+}

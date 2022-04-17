@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "gHg",
+    " g "
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "H": {
+      "item": "hip_hoppers:copper_ender_upper"
+    }
+  },
+  "result": {
+    "item": "hip_hoppers:gold_plated_copper_ender_upper",
+    "count": 1
+  }
+}

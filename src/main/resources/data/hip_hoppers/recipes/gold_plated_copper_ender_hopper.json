@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "H",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ender_pearl"
+    },
+    "H": {
+      "item": "hip_hoppers:gold_plated_copper_hopper"
+    }
+  },
+  "result": {
+    "item": "hip_hoppers:gold_plated_copper_ender_hopper",
+    "count": 1
+  }
+}

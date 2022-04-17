@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c c",
+    "cHc",
+    " c "
+  ],
+  "key": {
+    "c": {
+      "item": "minecraft:copper_ingot"
+    },
+    "H": {
+      "item": "hip_hoppers:upper"
+    }
+  },
+  "result": {
+    "item": "hip_hoppers:copper_upper",
+    "count": 1
+  }
+}
