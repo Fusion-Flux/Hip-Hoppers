@@ -2,12 +2,12 @@
 	"credit": "Made with Blockbench by Cart3r.  ",
 	"ambientocclusion": false,
 	"textures": {
-		"0": "hip_hoppers:block/super_speedy_hopper_top_rim",
-		"1": "hip_hoppers:block/super_speedy_hopper_inside",
-		"2": "hip_hoppers:block/super_speedy_hopper_outside",
-		"3": "hip_hoppers:block/super_speedy_hopper_top",
-		"4": "hip_hoppers:block/super_speedy_hopper_bottom_outlet",
-		"particle": "hip_hoppers:block/super_speedy_hopper_top_rim"
+		"0": "hip_hoppers:block/super_speedy_ender_hopper_top_rim",
+		"1": "hip_hoppers:block/super_speedy_ender_hopper_inside",
+		"2": "hip_hoppers:block/super_speedy_ender_hopper_outside",
+		"3": "hip_hoppers:block/super_speedy_ender_hopper_top",
+		"4": "hip_hoppers:block/super_speedy_ender_hopper_bottom_outlet",
+		"particle": "hip_hoppers:block/super_speedy_ender_hopper_top_rim"
 	},
 	"elements": [
 		{

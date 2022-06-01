@@ -91,7 +91,7 @@ public class CustomHopperBlockEntity extends LootableContainerBlockEntity implem
     }
 
     protected Text getContainerName() {
-        return new TranslatableText("container.skipper");
+        return new TranslatableText("container.hopper");
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, CustomHopperBlockEntity blockEntity) {
