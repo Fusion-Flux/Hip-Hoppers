@@ -1,0 +1,12 @@
+accessWidener v2 named
+accessible method net/minecraft/block/entity/HopperBlockEntity insertAndExtract (Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/block/entity/HopperBlockEntity;Ljava/util/function/BooleanSupplier;)Z
+accessible method net/minecraft/block/entity/HopperBlockEntity needsCooldown ()Z
+accessible method net/minecraft/block/entity/HopperBlockEntity isFull ()Z
+accessible method net/minecraft/block/entity/HopperBlockEntity setTransferCooldown (I)V
+accessible method net/minecraft/block/entity/HopperBlockEntity isInventoryFull (Lnet/minecraft/inventory/Inventory;Lnet/minecraft/util/math/Direction;)Z
+accessible method net/minecraft/block/entity/HopperBlockEntity isInventoryEmpty (Lnet/minecraft/inventory/Inventory;Lnet/minecraft/util/math/Direction;)Z
+accessible method net/minecraft/block/entity/HopperBlockEntity getAvailableSlots (Lnet/minecraft/inventory/Inventory;Lnet/minecraft/util/math/Direction;)Ljava/util/stream/IntStream;
+accessible method net/minecraft/block/entity/HopperBlockEntity canInsert (Lnet/minecraft/inventory/Inventory;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Z
+accessible method net/minecraft/block/entity/HopperBlockEntity canMergeItems (Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z
+accessible method net/minecraft/block/entity/HopperBlockEntity getInventoryAt (Lnet/minecraft/world/World;DDD)Lnet/minecraft/inventory/Inventory;
+accessible method net/minecraft/block/entity/HopperBlockEntity extract (Lnet/minecraft/block/entity/Hopper;Lnet/minecraft/inventory/Inventory;ILnet/minecraft/util/math/Direction;)Z

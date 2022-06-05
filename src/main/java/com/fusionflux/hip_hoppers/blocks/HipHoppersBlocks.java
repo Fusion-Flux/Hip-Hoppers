@@ -3,6 +3,7 @@ package com.fusionflux.hip_hoppers.blocks;
 import com.fusionflux.hip_hoppers.HipHoppersMod;
 import com.fusionflux.hip_hoppers.blocks.DownHoppers.EnderHopperBlock;
 import com.fusionflux.hip_hoppers.blocks.DownHoppers.EnderHopperBlockEntity;
+import com.fusionflux.hip_hoppers.blocks.DownHoppers.EnderHopperBlockEntityRedux;
 import com.fusionflux.hip_hoppers.blocks.NormalHoppers.CustomHopperBlock;
 import com.fusionflux.hip_hoppers.blocks.NormalHoppers.CustomHopperBlockEntity;
 import com.fusionflux.hip_hoppers.blocks.UpHoppers.EnderUpperBlock;
@@ -33,7 +34,7 @@ public class HipHoppersBlocks {
     public static final EnderHopperBlock ENDER_HOPPER_BLOCK = new EnderHopperBlock(FabricBlockSettings.copyOf(Blocks.HOPPER),8);
     public static final EnderHopperBlock COPPER_ENDER_HOPPER_BLOCK = new EnderHopperBlock(FabricBlockSettings.copyOf(Blocks.HOPPER),4);
     public static final EnderHopperBlock GOLD_PLATED_COPPER_ENDER_HOPPER_BLOCK = new EnderHopperBlock(FabricBlockSettings.copyOf(Blocks.HOPPER),2);
-    public static BlockEntityType<EnderHopperBlockEntity> ENDER_HOPPER_BLOCK_ENTITY;
+    public static BlockEntityType<EnderHopperBlockEntityRedux> ENDER_HOPPER_BLOCK_ENTITY;
 
 
     public static final CustomHopperBlock COPPER_HOPPER_BLOCK = new CustomHopperBlock(FabricBlockSettings.copyOf(Blocks.HOPPER),4);
@@ -43,7 +44,7 @@ public class HipHoppersBlocks {
 
     public static void registerBlocks() {
 
-        ENDER_HOPPER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("hip_hoppers", "ender_hopper_entity"), FabricBlockEntityTypeBuilder.create(EnderHopperBlockEntity::new, ENDER_HOPPER_BLOCK, COPPER_ENDER_HOPPER_BLOCK, GOLD_PLATED_COPPER_ENDER_HOPPER_BLOCK).build(null));
+        ENDER_HOPPER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("hip_hoppers", "ender_hopper_entity"), FabricBlockEntityTypeBuilder.create(EnderHopperBlockEntityRedux::new, ENDER_HOPPER_BLOCK, COPPER_ENDER_HOPPER_BLOCK, GOLD_PLATED_COPPER_ENDER_HOPPER_BLOCK).build(null));
         Registry.register(Registry.BLOCK, new Identifier("hip_hoppers", "ender_hopper"), ENDER_HOPPER_BLOCK);
         Registry.register(Registry.ITEM, new Identifier("hip_hoppers", "ender_hopper"), new BlockItem(ENDER_HOPPER_BLOCK, new Item.Settings().group(HipHoppersMod.HipHoppersGroup)));
 

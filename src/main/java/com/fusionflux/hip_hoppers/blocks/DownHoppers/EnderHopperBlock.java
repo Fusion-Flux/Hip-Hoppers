@@ -98,19 +98,19 @@ public class EnderHopperBlock extends BlockWithEntity{
     }
 
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new EnderHopperBlockEntity(pos, state,this.transferSpeed);
+        return new EnderHopperBlockEntityRedux(pos, state,this.transferSpeed);
     }
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, HipHoppersBlocks.ENDER_HOPPER_BLOCK_ENTITY, EnderHopperBlockEntity::serverTick);
+        return world.isClient ? null : checkType(type, HipHoppersBlocks.ENDER_HOPPER_BLOCK_ENTITY, EnderHopperBlockEntityRedux::serverTick);
     }
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         if (itemStack.hasCustomName()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof EnderHopperBlockEntity) {
-                ((EnderHopperBlockEntity)blockEntity).setCustomName(itemStack.getName());
+            if (blockEntity instanceof EnderHopperBlockEntityRedux) {
+                ((EnderHopperBlockEntityRedux)blockEntity).setCustomName(itemStack.getName());
             }
         }
 
@@ -127,8 +127,8 @@ public class EnderHopperBlock extends BlockWithEntity{
             return ActionResult.SUCCESS;
         } else {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof EnderHopperBlockEntity) {
-                player.openHandledScreen((EnderHopperBlockEntity)blockEntity);
+            if (blockEntity instanceof EnderHopperBlockEntityRedux) {
+                player.openHandledScreen((EnderHopperBlockEntityRedux)blockEntity);
                 player.incrementStat(Stats.INSPECT_HOPPER);
             }
 
@@ -151,8 +151,8 @@ public class EnderHopperBlock extends BlockWithEntity{
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.isOf(newState.getBlock())) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof EnderHopperBlockEntity) {
-                ItemScatterer.spawn(world, pos, (EnderHopperBlockEntity)blockEntity);
+            if (blockEntity instanceof EnderHopperBlockEntityRedux) {
+                ItemScatterer.spawn(world, pos, (EnderHopperBlockEntityRedux)blockEntity);
                 world.updateComparators(pos, this);
             }
 
@@ -186,8 +186,8 @@ public class EnderHopperBlock extends BlockWithEntity{
 
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof EnderHopperBlockEntity) {
-            EnderHopperBlockEntity.onEntityCollided(world, pos, state, entity, (EnderHopperBlockEntity)blockEntity);
+        if (blockEntity instanceof EnderHopperBlockEntityRedux) {
+            EnderHopperBlockEntityRedux.onEntityCollided(world, pos, state, entity, (EnderHopperBlockEntityRedux)blockEntity);
         }
 
     }

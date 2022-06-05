@@ -26,6 +26,7 @@
     ]
   },
 
+  "accessWidener": "hiphoppers.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.13.3",
