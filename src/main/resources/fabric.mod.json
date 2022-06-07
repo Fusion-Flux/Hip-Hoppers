@@ -25,7 +25,9 @@
       "com.fusionflux.hip_hoppers.client.HipHoppersClient"
     ]
   },
-
+  "mixins": [
+    "hip_hoppers.mixins.json"
+  ],
 
   "depends": {
     "fabricloader": ">=0.13.3",
